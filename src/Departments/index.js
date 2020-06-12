@@ -1,128 +1,254 @@
-async function loadModules() {
-    const API = await import('../API.js')
-    const { website } = API
-    website.then(({ Departments, Footer, Navbar, APIURL }) => {
-        console.log(Departments, Footer, Navbar, APIURL)
+import showdown from 'showdown'
+const converter = new showdown.Converter()
 
-    const modifiedDepartments = Departments.departments.map(department => {
-        return {
-            ...department,
-            image: {
-                ...department.image,
-                url: `${APIURL}${department.image.url}`
-            }
+
+export async function loadModules() {
+  const API = await import('../API')
+  const { website } = API 
+  return website.then(({ Announcements, Footer, Navbar, APIURL, ...rest }) => {
+
+    const { Departments: departments } = rest
+
+    const modifiedDepartments = departments.departments.map(department => {
+      return {
+        ...department,
+        image: {
+          ...department.image,
+          url: `${APIURL}${department.image.url}`,
+          formats: {
+              ...department.image.formats,
+              small: {
+                ...department.image.formats.small,
+                url: `${APIURL}${department.image.formats.small.url}`
+              }
+          }
         }
+      }
     })
 
-    console.log(modifiedDepartments)
-
-
-const reelBox = document.querySelector('.departments-container'),
-    selected = document.querySelector('.selected');
-
-let = firstNumber = 0,
-    secondNumber = 2;
-
-const leftArrow = document.querySelector('.left-arrow'),
-    rightArrow = document.querySelector('.right');
-
-function showDepartments(position) {
-    const ulElement = document.querySelector('.department-list')
-    if(ulElement && ulElement.children.length) {
-        ulElement.remove()
+    const newDepartments = {
+      ...departments,
+      departments: [
+        ...modifiedDepartments
+      ]
     }
-    const ul = document.createElement('ul')
-    ul.className = "department-list"
-    const chosenDepartments = modifiedDepartments.slice(firstNumber, secondNumber)
-    const displayDepartments = chosenDepartments
-    .map((department,index) => {
-        const li = document.createElement('li')
-        li.innerHTML = 
-        `
-            <li class="item${index}">${department.Title}</li>
-        `
 
-        ul.appendChild(li)
+    console.log(newDepartments)
+
+    const modifiedAnnouncements = Announcements.announcements.map(announcement => {
+
+      return {
+        ...announcement,
+        Content: converter.makeHtml(announcement.Content),
+        updated_at: new Date(announcement.updated_at).toLocaleDateString(),
+        picture: {
+          ...announcement.picture,
+          url: `${APIURL}${announcement.picture.url}`,
+          formats: {
+            ...announcement.picture.formats,
+            small: {
+              ...announcement.picture.formats.small,
+              url: `${APIURL}${announcement.picture.formats.small.url}`
+            }
+          }
+        }
+      }
     })
-    reelBox.appendChild(ul)
 
-    const middleDepartment = position === 'start' ?  secondNumber - firstNumber - 2 : secondNumber - firstNumber - 1
+const newsList = document.querySelector('.news-list')
+const newsContainer = document.querySelector('.news-container')
+const titleDiv = document.querySelector('.title')
+const subtitle = document.querySelector('.subtitle')
+const nav = document.querySelector('.navbar')
+const breadcrumb = document.querySelector('.breadcrumb')
+const breadcrumbList = breadcrumb.querySelector('ul')
+const hero = document.querySelector('.hero')
+const heroBody = document.querySelector('.hero-body')
+const parallaxImage = document.querySelector('.parallax')
+const heroTitle = document.querySelector('.hero .title')
+const heroSubtitle = document.querySelector('.hero .subtitle')
 
-    console.log(chosenDepartments, 'cd', firstNumber, secondNumber)
+function showNews() {
+  if(newsContainer.children.length) {
+    newsContainer.innerHTML = ''
+  }
 
-    if(chosenDepartments.length === 3) {
-        return showDepartment(chosenDepartments[secondNumber - firstNumber - 2])
-    }
-    if(firstNumber === 0) {
-        return showDepartment(chosenDepartments[firstNumber])
-    }
-    if(secondNumber === modifiedDepartments.length) {
-        return showDepartment(chosenDepartments[secondNumber - firstNumber - 1])
-    }
+  // window.addEventListener('scroll', () => {
+  //   window.pageYOffset > 0 ? nav.classList.remove("has-background-info") : nav.classList.add("has-background-info")
+  // })
+
+  // titleDiv.innerHTML =
+  // `
+  //   <h1>${Announcements.Section}</h1>
+  // </div>
+  // `
+  // subtitle.innerText = Announcements.Supporting_Text
+  hero.style.display = 'flex'
+  heroTitle.innerText = newDepartments.Section
+  // heroSubtitle.innerText = newDepartments.Supporting_Text
+  // parallaxImage.style.backgroundImage = `url(${'./newspaper.jpg'})`
+
+  breadcrumbList.innerHTML = 
+  `
+  <li><a href="#">Home</a></li>
+  <li class="is-active"><a href="#" aria-current="page">${newDepartments.Section}</a></li>
+  `
+
+  const fragment = document.createDocumentFragment()
+  const columns = document.createElement('div')
+  columns.className = 'columns is-multiline is-8'
+    newDepartments.departments.map(department => {
+      console.log(newsList)
+        const d = document.createElement('div')
+        // column.className = 'column is-one-quarter'
+          d.innerHTML = 
+          `
+            <div class="container"
+                <p class="single-news-title has-text-left title is-2">${department.Title}</p>
+            </div>
+          `
+          newsList.appendChild(d)
+          newsContainer.appendChild(newsList)
+        // columns.appendChild(column)
+        // const cardAction = column.querySelector('.title')
+        // const actions = [cardAction]
+        // actions.map(action => {
+        //     action.addEventListener('click', (event) => {
+        //         // event.preventDefault()
+        //         showSingleDepartment(department)
+        //     })
+        // })
+    })
+  // fragment.appendChild(columns)
+  // newsContainer.appendChild(fragment)
 }
 
-function showDepartment(department) {
-    console.log(firstNumber, secondNumber, 'now')
-    if(selected.children) {
-        selected.innerHTML = ''
-    }
-    console.log(department.Title, department)
-    const headerTitle = document.createElement('h1')
-    if(department.Title === 'Youth') {
-        selected.innerHTML = 
-        `
-            <h1>
-                <a href="youth-ministry.html">${department.Title}</a>
-            </h1>
-            <img src="./${department.image.url}.jpg">
-        `
+function showSingleDepartment(department) {
+
+  const otherNewsPosts = modifiedDepartments.filter(d => d.id === department.id + 1 || d.id === department.id - 1)
+  console.log(otherNewsPosts)
+
+
+  hero.style.display = 'none'
+  parallaxImage.style.backgroundImage = `url(${department.image.url})`
+  heroTitle.innerText = department.Title 
+  heroSubtitle.innerText = ''
+  breadcrumbList.innerHTML = 
+  `
+  <li><a href="#">Home</a></li>
+  <li><a href="./index.html">${newDepartments.Section}</a></li>
+  <li class="is-active"><a href="#" aria-current="page">${department.Title}</a></li>
+  `
+  newsContainer.innerHTML =
+  `
+      <div class="news-detail">
+      <h6 class="subtitle is-spaced is-size-7">REDEEMED PILLAR OF FIRE</h6>
+      <h1 class="title is-1 has-text-weight-light	">${department.Title}</h1>
+      <h4 class="has-text-centered">${department.updated_at}</h4>
+      <img src="${department.image.url}">
+      <nav class="level">
+        <div class="level-left">
+        
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+
+        </div>
+      </div>
+      </nav>
+      </div>
+  `
+  // const newsTitle = newsContainer.querySelector('.title')
+  // newsTitle.scrollIntoView(true)
+  otherNewsPosts.map(newsPost => {
+    const level = newsContainer.querySelector('.level-left')
+    if(newsPost.id === department.id - 1) {
+      console.log(level)
+      level.innerHTML = 
+      `
+      <div class="level-item has-text-centered">
+        <a class="button is-inverted is-link">
+          <h6 class="subtitle is-spaced is-size-7 more-announcements">Previous</h6>
+          <h4 class="title is-4 has-text-weight-light">${newsPost.Title}</h4>
+        </a>
+      </div>
+      `
+      const button = level.querySelector('.button')
+      button.addEventListener('click', () => {
+        event.preventDefault();
+        console.log(newsPost)
+        showSingleDepartment(newsPost)
+      })
     } else {
-    selected.innerHTML = 
-    `
-        <h1>${department.Title}</h1>
-        <img src="${department.image.url}">
-    `
+      const level = newsContainer.querySelector('.level-right')
+      level.innerHTML =
+      `
+      <div class="level-item has-text-centered">
+        <a class="button is-inverted is-link">
+          <h6 class="subtitle is-spaced is-size-7 more-announcements">Next</h6>
+          <h4 class="title is-4 has-text-weight-light">${newsPost.Title}</h4>
+        </a>
+      </div>
+      `
+      const button = level.querySelector('.button')
+      button.addEventListener('click', () => {
+        event.preventDefault();
+        console.log(newsPost)
+        showSingleDepartment(newsPost)
+      })
     }
+  })
+  // const button = newsContainer.querySelector('button')
+  // button.addEventListener('click', showNews)
 }
 
-const arrows = [leftArrow, rightArrow]
-
-arrows.map(arrow => {
-    arrow.addEventListener('click', event => {
-        const parent = event.target.parentNode.className
-        if (parent === 'right') {
-            if(secondNumber === 2) {
-                secondNumber += 1
-                return showDepartments()
-            } else if(secondNumber === modifiedDepartments.length && firstNumber === secondNumber - 2) {
-                return showDepartments()
-            } else if(secondNumber === modifiedDepartments.length) {
-                firstNumber = secondNumber - 2
-                return showDepartments()
-            } else {
-                secondNumber += 1
-                firstNumber = secondNumber - 3
-                return showDepartments()
-            }
-        } else {
-            if(firstNumber === 0) {
-                secondNumber = firstNumber + 2
-                return showDepartments()
-            } else if(firstNumber === modifiedDepartments.length - 2) {
-                firstNumber = modifiedDepartments.length - 3
-                return showDepartments()
-            }
-            else {
-                firstNumber -= 1
-                secondNumber = firstNumber + 3
-                return showDepartments()
-            }
-        }
-    })
-})
-
-    showDepartments()
-})
+    showNews()
+  })
 }
 
 loadModules()
+
+
+/* 
+Test Data
+
+const totalNews = [
+  {
+  title: 'RPF is now online!',
+  picture: 'Online.jpg',
+  description: `Cause dried no solid no an small so still widen. Ten weather evident smiling bed against she examine its. Rendered far opinions two yet moderate sex striking. Sufficient motionless compliment by stimulated assistance at. Convinced resolving extensive agreeable in it on as remainder. Cordially say affection met who propriety him. Are man she towards private weather pleased. In more part he lose need so want rank no. At bringing or he sensible pleasure. Prevent he parlors do waiting be females an message society.  
+
+  Over fact all son tell this any his. No insisted confined of weddings to returned to debating rendered. Keeps order fully so do party means young. Table nay him jokes quick. In felicity up to graceful mistaken horrible consider. Abode never think to at. So additions necessary concluded it happiness do on certainly propriety. On in green taken do offer witty of.  
+  
+  Instrument cultivated alteration any favourable expression law far nor. Both new like tore but year. An from mean on with when sing pain. Oh to as principles devonshire companions unsatiable an delightful. The ourselves suffering the sincerity. Inhabit her manners adapted age certain. Debating offended at branched striking be subjects.`,
+  date: '18/05/2020'
+}, {
+  title: 'We’ve moved',
+  picture: 'Travelling.jpg',
+  description: `Cause dried no solid no an small so still widen. Ten weather evident smiling bed against she examine its. Rendered far opinions two yet moderate sex striking. Sufficient motionless compliment by stimulated assistance at. Convinced resolving extensive agreeable in it on as remainder. Cordially say affection met who propriety him. Are man she towards private weather pleased. In more part he lose need so want rank no. At bringing or he sensible pleasure. Prevent he parlors do waiting be females an message society.  
+
+  Over fact all son tell this any his. No insisted confined of weddings to returned to debating rendered. Keeps order fully so do party means young. Table nay him jokes quick. In felicity up to graceful mistaken horrible consider. Abode never think to at. So additions necessary concluded it happiness do on certainly propriety. On in green taken do offer witty of.  
+  
+  Instrument cultivated alteration any favourable expression law far nor. Both new like tore but year. An from mean on with when sing pain. Oh to as principles devonshire companions unsatiable an delightful. The ourselves suffering the sincerity. Inhabit her manners adapted age certain. Debating offended at branched striking be subjects.`,
+  date: '18/05/2020'
+}, {
+  title: 'Mandate for the year',
+  picture: 'Mandate.jpg',
+  description: `Cause dried no solid no an small so still widen. Ten weather evident smiling bed against she examine its. Rendered far opinions two yet moderate sex striking. Sufficient motionless compliment by stimulated assistance at. Convinced resolving extensive agreeable in it on as remainder. Cordially say affection met who propriety him. Are man she towards private weather pleased. In more part he lose need so want rank no. At bringing or he sensible pleasure. Prevent he parlors do waiting be females an message society.  
+
+  Over fact all son tell this any his. No insisted confined of weddings to returned to debating rendered. Keeps order fully so do party means young. Table nay him jokes quick. In felicity up to graceful mistaken horrible consider. Abode never think to at. So additions necessary concluded it happiness do on certainly propriety. On in green taken do offer witty of.  
+  
+  Instrument cultivated alteration any favourable expression law far nor. Both new like tore but year. An from mean on with when sing pain. Oh to as principles devonshire companions unsatiable an delightful. The ourselves suffering the sincerity. Inhabit her manners adapted age certain. Debating offended at branched striking be subjects.`,
+  date: '18/05/2020'
+}, {
+  title: 'Response to COVID 19',
+  picture: 'COVID.jpg',
+  description: `Cause dried no solid no an small so still widen. Ten weather evident smiling bed against she examine its. Rendered far opinions two yet moderate sex striking. Sufficient motionless compliment by stimulated assistance at. Convinced resolving extensive agreeable in it on as remainder. Cordially say affection met who propriety him. Are man she towards private weather pleased. In more part he lose need so want rank no. At bringing or he sensible pleasure. Prevent he parlors do waiting be females an message society.  
+
+  Over fact all son tell this any his. No insisted confined of weddings to returned to debating rendered. Keeps order fully so do party means young. Table nay him jokes quick. In felicity up to graceful mistaken horrible consider. Abode never think to at. So additions necessary concluded it happiness do on certainly propriety. On in green taken do offer witty of.  
+  
+  Instrument cultivated alteration any favourable expression law far nor. Both new like tore but year. An from mean on with when sing pain. Oh to as principles devonshire companions unsatiable an delightful. The ourselves suffering the sincerity. Inhabit her manners adapted age certain. Debating offended at branched striking be subjects.`,
+  date: '18/05/2020'
+}]
+
+*/

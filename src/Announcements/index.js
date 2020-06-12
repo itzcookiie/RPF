@@ -1,11 +1,14 @@
 import showdown from 'showdown'
+import './index.css'
+import './logo.jpg'
+import './newspaper.jpg'
 const converter = new showdown.Converter()
 
 
 async function loadModules() {
   const API = await import('../API')
   const { website } = API 
-  return website.then(({ Announcements, Footer, Navbar, APIURL }) => {
+  return website.then(({ Announcements, APIURL }) => {
 
     const modifiedAnnouncements = Announcements.announcements.map(announcement => {
 
@@ -57,18 +60,18 @@ function showNews() {
   hero.style.display = 'flex'
   heroTitle.innerText = Announcements.Section
   heroSubtitle.innerText = Announcements.Supporting_Text
-  parallaxImage.style.backgroundImage = `url(${'./newspaper.jpg'})`
+  // parallaxImage.style.backgroundImage = `url(${'./newspaper.jpg'})`
 
   breadcrumbList.innerHTML = 
   `
-  <li><a href="#">Home</a></li>
+  <li><a href="../Home/index.html">Home</a></li>
   <li class="is-active"><a href="#" aria-current="page">${Announcements.Section}</a></li>
   `
 
   const fragment = document.createDocumentFragment()
   const columns = document.createElement('div')
   columns.className = 'columns is-multiline'
-    modifiedAnnouncements.map(news => {
+    Announcements.announcements.map(news => {
       console.log(news.picture.formats.small.url)
         const column = document.createElement('div')
         column.className = 'column is-one-third'
@@ -85,7 +88,6 @@ function showNews() {
             <button class="button is-link is-inverted is-outlined has-text-weight-bold">READ MORE</button>
             </h1>
           </div>
-        </section>
         `
         columns.appendChild(column)
         const cardAction = column.querySelector('.title')
@@ -104,7 +106,7 @@ function showNews() {
 
 function showSingleNews(news) {
 
-  const otherNewsPosts = modifiedAnnouncements.filter(announcement => announcement.id === news.id + 1 || announcement.id === news.id - 1)
+  const otherNewsPosts = Announcements.announcements.filter(announcement => announcement.id === news.id + 1 || announcement.id === news.id - 1)
   console.log(otherNewsPosts)
 
   hero.style.display = 'none'

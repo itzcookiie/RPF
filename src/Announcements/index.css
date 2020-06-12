@@ -1,5 +1,8 @@
 *, *::before, *::after {
     box-sizing: border-box;
+}
+
+p {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -121,7 +124,7 @@ h6 {
 
 .parallax {
       /* The image used */
-  background-image: url("./newspaper.jpg");
+  background-image: url("../assets/image/newspaper.jpg");
 
   /* Full height */
   height: 100%;
