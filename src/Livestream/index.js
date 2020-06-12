@@ -1,7 +1,6 @@
 import showdown from 'showdown'
 import './index.css'
 import './cover5.jpg'
-const converter = new showdown.Converter()
 
 
 async function loadModules() {
