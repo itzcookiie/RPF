@@ -9,6 +9,8 @@ import './cross2.jpg';
 import homecover from './homecover.jpg';
 import bonding from './bonding.jpg';
 import cross from './cross.jpg';
+import './samuel.jpg';
+import './kent-thursday-event.jpg';
 import bulmaCollapsible from '@creativebulma/bulma-collapsible';
 
 bulmaCollapsible.attach('.is-collapsible');
