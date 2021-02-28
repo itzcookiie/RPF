@@ -55,17 +55,13 @@ module.exports = {
     entry: {...pageFolders},
     output: {
         filename: '[name]/index.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist/'),
         publicPath: '/'
     },
+    devServer: {
+        contentBase: 'dist'
+    },
     devtool: 'inline-source-map',
-    plugins: [
-        ...htmlFiles,
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: path.resolve(__dirname, 'src/index.html')
-        })
-    ],
     module: {
         rules: [
             {
@@ -93,14 +89,39 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: [
+                use: 
+                [
                     {
                         loader: 'file-loader',
                         options: {
-                          name: '[name].[ext]',
-                          outputPath: 'assets/image/',    // where the fonts will go
+                        name: '[name].[ext]',
+                        outputPath: 'assets/image/',    // where the fonts will go
                         }
-                }]
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                          mozjpeg: {
+                            progressive: true,
+                          },
+                          // optipng.enabled: false will disable optipng
+                          optipng: {
+                            optimizationLevel: 5 ,
+                          },
+                          pngquant: {
+                            quality: [0.65, 0.90],
+                            speed: 4
+                          },
+                          gifsicle: {
+                            interlaced: true,
+                          },
+                          // the webp option will enable WEBP
+                          webp: {
+                            quality: 75
+                          }
+                        }
+                      }
+                ]
             }
         //     {
         //     test: /\.html$/i,
@@ -109,6 +130,13 @@ module.exports = {
         //     ]
         // }
         ]
-    }
+    },
+    plugins: [
+        ...htmlFiles,
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: path.resolve(__dirname, 'src/index.html')
+        })
+    ]
 
 }
