@@ -326,7 +326,11 @@ h6 {
     opacity: 0;
 }
 
-.events {
+.light-gradient {
+    background:linear-gradient(120deg, #414b56, #00a2e1);
+}
+
+.events-title {
     padding: 10px;
     border: 1px solid white;
     display: inline-block;
