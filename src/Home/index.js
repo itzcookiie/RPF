@@ -11,6 +11,7 @@ import bonding from './bonding.jpg';
 import cross from './cross.jpg';
 import './samuel.jpg';
 import './kent-thursday-event.jpg';
+import './fellowship.jpg';
 import bulmaCollapsible from '@creativebulma/bulma-collapsible';
 
 bulmaCollapsible.attach('.is-collapsible');
@@ -18,7 +19,7 @@ bulmaCollapsible.attach('.is-collapsible');
 const converter = new showdown.Converter()
 
 let carouselImagesRef = [];
-const carouselImageNames = ['homecover', 'bonding', 'cross'];
+const carouselImageNames = ['homecover', 'fellowship', 'cross', 'bonding'];
 
 document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.querySelector('.carousel');
