@@ -51,7 +51,7 @@ const htmlFiles = ['About', 'Home', 'Announcements', 'Calendar', 'Contact', 'Liv
 }, [])
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: {...pageFolders},
     output: {
         filename: '[name]/index.js',

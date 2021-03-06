@@ -25,14 +25,6 @@ h6 {
     margin: 0 auto;
 }
 
-.title, .subtitle {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 .big-title {
     font-size: 6rem;
 }
@@ -177,10 +169,6 @@ h6 {
     margin-bottom: 10px;
 }
 
-.level {
-    margin-bottom: 50px;
-}
-
 .level-item {
     flex-direction: column;
 }
@@ -193,4 +181,12 @@ h6 {
 
 .church-content p {
     padding: 15px;
+}
+
+.light-gradient {
+    background:linear-gradient(120deg, #414b56, #00a2e1);
+}
+
+.livestream-message {
+    text-align: center;
 }
