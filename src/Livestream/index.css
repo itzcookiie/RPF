@@ -234,3 +234,20 @@ h6 {
 .online-msg-divider {
     margin-bottom: 15px;
 }
+
+.card--half {
+    width: 50%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.events-btn-container {
+    width: 250px;
+    height: 50px;
+}
+
+.btn-fullheight {
+    height: 100%;
+}
