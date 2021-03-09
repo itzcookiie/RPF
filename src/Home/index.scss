@@ -1,6 +1,7 @@
 @import '~bulma';
 @import '~@creativebulma/bulma-collapsible';
 
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -122,8 +123,7 @@ h6 {
 }
 
 .parallax {
-      /* The image used */
-  background-image: url("./welcome2.jpg");
+    /* The image used */
 
   /* Full height */
   height: 100%;
@@ -133,6 +133,24 @@ h6 {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.hero-body {
+    position: relative;
+}
+
+.carousel-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.carousel-image:nth-child(1) {
+    opacity: 1;
 }
 
 .news-detail {
@@ -174,10 +192,6 @@ h6 {
     text-align: left;
     width: 100%;
     margin-bottom: 10px;
-}
-
-.level {
-    margin-bottom: 50px;
 }
 
 .level-item {
@@ -277,4 +291,51 @@ h6 {
 .change {
     position: relative;
     top: 1.25rem;
+}
+
+.calender {
+    z-index: 1;
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.calender-day {
+    font-size: 4rem;
+}
+
+.calender-month {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verse-of-the-day {
+    position: relative;
+    background-image: url("https://images.unsplash.com/photo-1487436254160-200cfa68c8a3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.verse-of-the-day::before {
+    opacity: 0;
+}
+
+.light-gradient {
+    background:linear-gradient(120deg, #414b56, #00a2e1);
+}
+
+.events-title {
+    padding: 10px;
+    border: 1px solid white;
+    display: inline-block;
+}
+
+.livestream-message {
+    text-align: center;
 }

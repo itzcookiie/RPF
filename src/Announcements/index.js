@@ -58,8 +58,8 @@ function showNews() {
   // `
   // subtitle.innerText = Announcements.Supporting_Text
   hero.style.display = 'flex'
-  heroTitle.innerText = Announcements.Section
-  heroSubtitle.innerText = Announcements.Supporting_Text
+  // heroTitle.innerText = Announcements.Section
+  // heroSubtitle.innerText = Announcements.Supporting_Text
   // parallaxImage.style.backgroundImage = `url(${'./newspaper.jpg'})`
 
   breadcrumbList.innerHTML = 

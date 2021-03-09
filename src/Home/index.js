@@ -1,17 +1,45 @@
 import showdown from 'showdown';
 import './index.scss';
-import './good.jpg'
-import './Ministries.jpg'
-import './calander.jpg'
-import './flyer.jpg'
-import './aboutus-cover.jpg'
-import './cross2.jpg'
+import './good.jpg';
+import './Ministries.jpg';
+import './calander.jpg';
+import './flyer.jpg';
+import './aboutus-cover.jpg';
+import './cross2.jpg';
+import homecover from './homecover.jpg';
+import bonding from './bonding.jpg';
+import cross from './cross.jpg';
+import './samuel.jpg';
+import './kent-thursday-event.jpg';
+import './fellowship.jpg';
 import bulmaCollapsible from '@creativebulma/bulma-collapsible';
 
 bulmaCollapsible.attach('.is-collapsible');
 
 const converter = new showdown.Converter()
 
+let carouselImagesRef = [];
+const carouselImageNames = ['homecover', 'fellowship', 'cross', 'bonding'];
+
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.querySelector('.carousel');
+  const images = [...carousel.children];
+  images.forEach((image, index) => {
+    image.style.backgroundImage = `url("../assets/image/${carouselImageNames[index]}.jpg")`
+  })
+  carouselImagesRef = images;
+  const { length } = carouselImagesRef;
+    const rotateCarousel = setInterval(() => {
+      const carouselImages = carouselImagesRef.map((image, index, array) => {
+        // console.log(array[(length + index - 1) % length].src)
+        return array[(length + index + 1) % length]
+      })
+      console.log(carouselImages[0], carouselImages[1], carouselImages[2])
+      carouselImages[length - 1].style.opacity = 0;
+      carouselImages[0].style.opacity = 1;
+      carouselImagesRef = [...carouselImages];
+    }, 5000) 
+})
 
 async function loadModules() {
   const API = await import('../API')
