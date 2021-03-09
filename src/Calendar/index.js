@@ -1,5 +1,7 @@
 import showdown from 'showdown'
 import './index.css'
+import './meet_and_greet.png'
+
 const converter = new showdown.Converter()
 
 

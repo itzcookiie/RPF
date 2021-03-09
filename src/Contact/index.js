@@ -91,7 +91,7 @@ function showNews() {
         columns.appendChild(column)
     })
   fragment.appendChild(columns)
-  newsContainer.appendChild(fragment)
+  // newsContainer.appendChild(fragment)
 }
 
     showNews()

@@ -4,7 +4,6 @@ import './cover5.jpg'
 import './livestream-cover.png'
 import './livestream-cover-2.png'
 
-
 async function loadModules() {
   const API = await import('../API')
   const { website } = API 
@@ -73,6 +72,22 @@ const heroBody = document.querySelector('.hero-body')
 const parallaxImage = document.querySelector('.parallax')
 const heroTitle = document.querySelector('.hero .title')
 const heroSubtitle = document.querySelector('.hero .subtitle')
+
+    const eventDayBtns = document.querySelector('.buttons');
+    const eventsImage = document.querySelector('.events-img');
+    [...eventDayBtns.children].forEach(button => button.addEventListener('click', function(e) {
+      resetBtns();
+      this.classList.add('is-black');
+      if(this.innerText === 'Tue') {
+        eventsImage.src = '../assets/image/meet_and_greet.png'
+      } else {
+        eventsImage.src = '../assets/image/kent-thursday-event.jpg'
+      }
+    }))
+
+    function resetBtns() {
+      [...eventDayBtns.children].forEach(button => button.classList.remove('is-black'));
+    }
 
 function showNews() {
   breadcrumbList.innerHTML = 
