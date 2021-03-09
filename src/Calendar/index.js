@@ -37,7 +37,7 @@ function showNews() {
 
   const stringToNode = document.createRange().createContextualFragment(Calendar.Calender)
 
-  container.appendChild(stringToNode)
+  // container.appendChild(stringToNode)
 }
 
   showNews()
