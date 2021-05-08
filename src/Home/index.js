@@ -41,6 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000) 
 })
 
+document.addEventListener('scroll', e => {
+  const button = document.querySelector('.navbar-end .button')
+  if(!!window.scrollY) {
+    document.body.classList.add('fixnav');
+    button.classList.add('is-outlined');
+  } else {
+    document.body.classList.remove('fixnav');
+    button.classList.remove('is-outlined');
+  }
+})
+
 async function loadModules() {
   const API = await import('../API')
   const { website } = API 
