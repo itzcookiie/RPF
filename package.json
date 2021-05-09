@@ -14,7 +14,7 @@
   "dependencies": {
     "@material/card": "^6.0.0",
     "bulma": "^0.8.2",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "html-webpack-plugin": "^4.3.0",
     "http-server": "^0.12.3",
     "showdown": "^1.9.1"
