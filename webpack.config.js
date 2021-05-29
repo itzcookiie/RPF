@@ -122,13 +122,11 @@ module.exports = {
                         }
                       }
                 ]
+            },
+            {
+                test: /\.mp4$/,
+                use: 'file-loader?name=videos/[name].[ext]',
             }
-        //     {
-        //     test: /\.html$/i,
-        //     use: [
-        //         'file-loader?name=[name].[ext]', 'extract-loader', 'html-loader',
-        //     ]
-        // }
         ]
     },
     plugins: [
