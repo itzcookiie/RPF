@@ -60,8 +60,9 @@ body {
     font-size: 5rem;
 }
 
-.subtitle {
-    font-size: 2rem;
+subtitle--welcome {
+    font-size: 18px;
+    line-height: 30px;
 }
 
 /* .navbar a {
@@ -376,6 +377,12 @@ body {
     z-index: 1;
 }
 
-.follow-us-insta-container button {
+.follow-us-insta-container a {
     font-size: 2rem;
+}
+
+.event-info {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
 }

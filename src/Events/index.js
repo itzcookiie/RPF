@@ -1,4 +1,5 @@
 import showdown from 'showdown'
+import './calander.jpg';
 import './index.css'
 import './meet_and_greet.png'
 

@@ -1,48 +1,29 @@
 import showdown from 'showdown';
 import './index.scss';
-import homecover from './homecover.jpg';
-import cross from './cross.jpg';
-import carousel from './carousel.jpg';
-import carousel_1 from './carousel-1.jpg';
-import carousel_2 from './carousel-2.jpg';
-import './samuel.jpg';
-import './kent-thursday-event.jpg';
-import fellowship from './fellowship.jpg';
-import video from './home-vid-2.mp4';
-import gif from './home-vid-2.mp4';
+import carousel0 from './fiyin-reading-bible.jpg';
+import carousel1 from './livestream-fellowship.jpg';
+import carousel2 from './carousel-2.jpg';
+import carousel3 from './samuel-with-bible-on-head.jpg';
+import welcome_pic from './samuel.jpg';
+import kentThursdayEvent from './kent-thursday-event.jpg';
+import fridayBibleStudy from './bible-study.jpg';
+import './carousel-1.jpg';
+import './podcast.jpg';
+import './livestream-fellowship.jpg';
+import video from './welcome-to-kent.mp4';
 import bulmaCollapsible from '@creativebulma/bulma-collapsible';
 
 bulmaCollapsible.attach('.is-collapsible');
 
+const instaImageElements = document.querySelectorAll('.follow-us-on-insta-section img');
+const instaImages = [carousel0, carousel1, carousel2, carousel3];
+instaImageElements.forEach((image, index) => {
+  image.src = `${instaImages[index]}`;
+})
 document.querySelector('video').src = video
 document.querySelector('video').play();
 
 const converter = new showdown.Converter()
-
-let carouselImagesRef = [];
-const carouselImageNames = [carousel, carousel_1, carousel_2, fellowship];
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   const carousel = document.querySelector('.carousel');
-//   const images = [...carousel.children];
-//   images.forEach((image, index) => {
-//     console.log(carouselImageNames[index], index)
-//     image.style.backgroundImage = `url("${carouselImageNames[index]}")`
-//   })
-//   carouselImagesRef = images;
-//   const { length } = carouselImagesRef;
-//     const rotateCarousel = setInterval(() => {
-//       const carouselImages = carouselImagesRef.map((image, index, array) => {
-//         // console.log(array[(length + index - 1) % length].src)
-//         console.log(array)
-//         return array[(length + index + 1) % length]
-//       })
-//       console.log(carouselImages[0], carouselImages[1], carouselImages[2])
-//       carouselImages[length - 1].style.opacity = 0;
-//       carouselImages[0].style.opacity = 1;
-//       carouselImagesRef = [...carouselImages];
-//     }, 5000)
-// })
 
 document.addEventListener('scroll', e => {
   const button = document.querySelector('.navbar-end .button')

@@ -1,6 +1,7 @@
 import showdown from 'showdown'
 import './index.css'
 import './cover5.jpg'
+import './livestream-1.jpg'
 import './livestream-cover.png'
 import './livestream-cover-2.png'
 
