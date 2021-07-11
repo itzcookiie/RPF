@@ -1,5 +1,6 @@
 import showdown from 'showdown'
 import './index.css'
+import '../../base.scss';
 const converter = new showdown.Converter()
 
 

@@ -1,0 +1,14 @@
+$fullhd: 1344px;
+@import '~bulma';
+@import '~@creativebulma/bulma-collapsible';
+
+body {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.navbar {
+    max-width: inherit;
+    margin: inherit;
+    background-color: transparent;
+}

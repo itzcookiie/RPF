@@ -1,4 +1,5 @@
 import showdown from 'showdown'
+import '../base.scss';
 import './index.css'
 import './dial.jpg'
 const converter = new showdown.Converter()

@@ -1,5 +1,6 @@
 import showdown from 'showdown'
 import './index.css'
+import '../base.scss';
 import './logo.jpg'
 import './newspaper.jpg'
 const converter = new showdown.Converter()

@@ -1,4 +1,5 @@
 import showdown from 'showdown'
+import '../base.scss';
 import './index.css'
 import './cover5.jpg'
 import './livestream-1.jpg'

@@ -129,7 +129,7 @@ h6 {
   /* background-attachment: fixed; */
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 
 .news-detail {
@@ -236,7 +236,8 @@ h6 {
 }
 
 .card--half {
-    width: 50%;
+    margin: inherit;
+    max-width: 500px;
 }
 
 .text-center {

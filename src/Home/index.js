@@ -1,4 +1,5 @@
 import showdown from 'showdown';
+import '../base.scss';
 import './index.scss';
 import carousel0 from './fiyin-reading-bible.jpg';
 import carousel1 from './livestream-fellowship.jpg';

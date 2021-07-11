@@ -1,7 +1,8 @@
-import showdown from 'showdown'
-import './index.css'
-import './cover.jpg'
-import '../RPF-Church-Cover.jpg'
+import showdown from 'showdown';
+import '../../base.scss';
+import './index.css';
+import './cover.jpg';
+import '../RPF-Church-Cover.jpg';
 
 const converter = new showdown.Converter()
 
