@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const pageFolders = ['About', 'Home', 'Announcements', 'Events', 'Contact', 'Livestream'].reduce((allPageFolders,pagefolder) => {
+const pageFolders = ['About', 'Home', 'Announcements', 'Events', 'Contact'].reduce((allPageFolders,pagefolder) => {
     if(pagefolder === 'About') {
         const folders = ['AboutUs', 'ChurchHistory']
         return folders.reduce((currentFolders, folder) => {
@@ -22,7 +22,7 @@ const pageFolders = ['About', 'Home', 'Announcements', 'Events', 'Contact', 'Liv
 
 console.log(pageFolders)
 
-const htmlFiles = ['About', 'Home', 'Announcements', 'Events', 'Contact', 'Livestream'].reduce((allPageFolders, pagefolder) => {
+const htmlFiles = ['About', 'Home', 'Announcements', 'Events', 'Contact'].reduce((allPageFolders, pagefolder) => {
     if(pagefolder === 'About') {
         const folders = ['AboutUs', 'ChurchHistory']
         return folders.reduce((currentFolders, folder) => {
