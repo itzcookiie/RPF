@@ -1,5 +1,9 @@
 import '../base.scss';
 import './index.scss';
+import './bible-study.jpg';
+import './kent-thursday-event.jpg';
+import './podcast.jpg';
+import './carousel-1.jpg';
 import carousel0 from './fiyin-reading-bible.jpg';
 import carousel1 from './livestream-fellowship.jpg';
 import carousel2 from './carousel-2.jpg';
@@ -18,13 +22,13 @@ document.querySelector('video').src = video
 document.querySelector('video').play();
 
 document.addEventListener('scroll', e => {
-  const button = document.querySelector('.navbar-end .button')
+  // const button = document.querySelector('.navbar-end .button')
   if(!!window.scrollY) {
     document.body.classList.add('fixnav');
-    button.classList.add('is-outlined');
+    // button.classList.add('is-outlined');
   } else {
     document.body.classList.remove('fixnav');
-    button.classList.remove('is-outlined');
+    // button.classList.remove('is-outlined');
   }
 })
 
